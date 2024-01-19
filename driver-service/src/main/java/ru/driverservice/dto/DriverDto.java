@@ -10,19 +10,20 @@ import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class DriverDto {
 
-    public DriverDto(String firstName, String lastName,
-                     String fatherName, LocalDate dateOfBirth,
-                     String email, String address, Integer salary) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.fatherName = fatherName;
-        this.dateOfBirth = dateOfBirth;
-        this.email = email;
-        this.address = address;
-        this.salary = salary;
-    }
+//    public DriverDto(String firstName, String lastName,
+//                     String fatherName, LocalDate dateOfBirth,
+//                     String email, String address, Integer salary) {
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.fatherName = fatherName;
+//        this.dateOfBirth = dateOfBirth;
+//        this.email = email;
+//        this.address = address;
+//        this.salary = salary;
+//    }
 
     @NotNull(message = "First Name cannot be empty")
     @Pattern(regexp = "^[^0-9]+$")

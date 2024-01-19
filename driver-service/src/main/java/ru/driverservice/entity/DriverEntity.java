@@ -14,6 +14,7 @@ import java.time.Period;
 @Getter
 @Setter
 @NoArgsConstructor
+//@AllArgsConstructor
 @EqualsAndHashCode(exclude = "age")
 public class DriverEntity {
 
@@ -57,7 +58,7 @@ public class DriverEntity {
             // генерирует и сохраняет в таблице значение, равное разнице между текущим годом и годом рождения
             columnDefinition = "integer GENERATED ALWAYS AS (EXTRACT(YEAR FROM AGE(CURRENT_DATE, dateOfBirth))) " +
                     "STORED CHECK (age >= 18 AND age <= 65)")
-    @Setter(AccessLevel.NONE) // Исключаем генерацию сеттера для поля age
+//    @Setter(AccessLevel.NONE) // Исключаем генерацию сеттера для поля age
     @Getter
     private Integer age;
 
@@ -82,8 +83,4 @@ public class DriverEntity {
     // Ex: 24000
     private Integer salary;
 
-    public int calculateAge() {
-        LocalDate currentDate = LocalDate.now();
-        return Period.between(dateOfBirth, currentDate).getYears();
-    }
 }
