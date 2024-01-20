@@ -13,6 +13,8 @@ import ru.driverservice.exeption.NotFoundException;
 import ru.driverservice.mapper.DriverMapper;
 import ru.driverservice.repository.DriverRepository;
 
+import java.time.LocalDate;
+
 
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -29,6 +31,13 @@ public class DriverService {
 
     public DriverEntity createDriver(@Valid DriverDto driverDto) {
         DriverEntity driverEntity = DriverMapper.INSTANCE.driverDtoToDriver(driverDto);
+
+        int currentYear = LocalDate.now().getYear();
+        int birthYear = driverDto.getDateOfBirth().getYear();
+        int age = currentYear - birthYear;
+
+        driverEntity.setAge(age);
+
         return driverRepository.save(driverEntity);
     }
 
@@ -37,6 +46,12 @@ public class DriverService {
                 .orElseThrow(() -> new NotFoundException("Driver not found"));
 
         driverMapper.updateDriverFromDto(driverDto, driverEntity);
+
+        int currentYear = LocalDate.now().getYear();
+        int birthYear = driverDto.getDateOfBirth().getYear();
+        int age = currentYear - birthYear;
+
+        driverEntity.setAge(age);
 
         return driverRepository.save(driverEntity);
     }
@@ -61,5 +76,4 @@ public class DriverService {
             return driverRepository.findAllByFirstNameAndLastNameContaining(firstName, lastName, pageable);
         }
     }
-
 }

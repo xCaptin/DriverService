@@ -14,25 +14,12 @@ import java.time.Period;
 @Getter
 @Setter
 @NoArgsConstructor
-//@AllArgsConstructor
-@EqualsAndHashCode(exclude = "age")
+@AllArgsConstructor
 public class DriverEntity {
 
-    public DriverEntity(Long id, String firstName, String lastName,
-                        String fatherName, LocalDate dateOfBirth,
-                        String email, String address, Integer salary) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.fatherName = fatherName;
-        this.dateOfBirth = dateOfBirth;
-        this.email = email;
-        this.address = address;
-        this.salary = salary;
-    }
-
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "driver_id_seq")
+    @SequenceGenerator(name = "driver_id_seq", sequenceName = "driver_id_seq", allocationSize = 1)
     private Long id;
 
     @Column(name = "firstName", nullable = false, length = 20)
@@ -45,7 +32,7 @@ public class DriverEntity {
     @Pattern(regexp = "^[^0-9]+$")
     private String lastName;
 
-    @Column(name = "fatherName", nullable = true, length = 20)
+    @Column(name = "fatherName", length = 20)
     @Pattern(regexp = "^[^0-9]+$")
     private String fatherName;
 
@@ -54,12 +41,7 @@ public class DriverEntity {
     // Ex: 03-07-1984
     private LocalDate dateOfBirth;
 
-    @Column(name = "age", nullable = false, insertable = false,
-            // генерирует и сохраняет в таблице значение, равное разнице между текущим годом и годом рождения
-            columnDefinition = "integer GENERATED ALWAYS AS (EXTRACT(YEAR FROM AGE(CURRENT_DATE, dateOfBirth))) " +
-                    "STORED CHECK (age >= 18 AND age <= 65)")
-//    @Setter(AccessLevel.NONE) // Исключаем генерацию сеттера для поля age
-    @Getter
+    @Column(name = "age")
     private Integer age;
 
     @Column(name = "email", nullable = false, unique = true)
@@ -79,7 +61,6 @@ public class DriverEntity {
     @Column(name = "salary", nullable = false)
     @NotNull(message = "Salary cannot be empty")
     @Positive
-    @DecimalMin("19242")
     // Ex: 24000
     private Integer salary;
 
