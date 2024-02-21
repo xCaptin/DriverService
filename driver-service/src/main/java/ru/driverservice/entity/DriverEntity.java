@@ -31,6 +31,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Table(name = "driver")
@@ -94,4 +95,35 @@ public class DriverEntity {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "license_id", referencedColumnName = "id")
     private LicenseEntity license;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DriverEntity that = (DriverEntity) o;
+        return Objects.equals(id, that.id) && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(fatherName, that.fatherName) && Objects.equals(dateOfBirth, that.dateOfBirth) && Objects.equals(age, that.age) && Objects.equals(email, that.email) && Objects.equals(address, that.address) && Objects.equals(salary, that.salary) && Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAt, that.updatedAt) && Objects.equals(license, that.license);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, fatherName, dateOfBirth, age, email, address, salary, createdAt, updatedAt, license);
+    }
+
+    @Override
+    public String toString() {
+        return "DriverEntity{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", fatherName='" + fatherName + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", age=" + age +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                ", salary=" + salary +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", license=" + license +
+                '}';
+    }
 }

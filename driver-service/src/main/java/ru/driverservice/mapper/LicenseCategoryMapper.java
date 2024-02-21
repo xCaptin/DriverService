@@ -1,6 +1,7 @@
 package ru.driverservice.mapper;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import ru.driverservice.dto.LicenseCategoryDto;
 import ru.driverservice.entity.LicenseCategoryEntity;
 
@@ -9,5 +10,4 @@ public interface LicenseCategoryMapper {
     LicenseCategoryDto licenseCategoryToLicenseCategoryDto(LicenseCategoryEntity licenseCategory);
 
     LicenseCategoryEntity licenseCategoryDtoToLicenseCategory(LicenseCategoryDto licenseCategoryDto);
-
 }

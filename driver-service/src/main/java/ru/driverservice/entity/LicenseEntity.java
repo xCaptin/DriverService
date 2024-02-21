@@ -44,9 +44,20 @@ public class LicenseEntity {
     private LocalDate expirationDate;
 
     @Column(name = "identification_number", nullable = false, unique = true)
-    @Size(min = 10, max = 10, message = "Identification number should be 10 characters")
+    @Size(min = 10, max = 15, message = "Identification number should be 10 to 15 characters")
     private String identificationNumber;
 
     @OneToMany(mappedBy = "license", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<LicenseCategoryEntity> categories = new HashSet<>();
+
+    @Override
+    public String toString() {
+        return "LicenseEntity{" +
+                "id=" + id +
+                ", issueDate=" + issueDate +
+                ", expirationDate=" + expirationDate +
+                ", identificationNumber='" + identificationNumber + '\'' +
+                ", categories=" + categories +
+                '}';
+    }
 }

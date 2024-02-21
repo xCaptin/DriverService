@@ -31,11 +31,11 @@ public class LicenseCategoryEntity {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "category", nullable = false)
+    @Column(name = "category")
     private CategoryType category;
 
     @ManyToOne
-    @JoinColumn(name = "license_id", nullable = false)
+    @JoinColumn(name = "license_id")
     private LicenseEntity license;
 
     public enum CategoryType {
@@ -49,6 +49,15 @@ public class LicenseCategoryEntity {
         CATEGORY_D,
         CATEGORY_D1,
         CATEGORY_M,
+    }
+
+    @Override
+    public String toString() {
+        return "LicenseCategoryEntity{" +
+                "id=" + id +
+                ", category=" + category +
+                ", license=" + license +
+                '}';
     }
 }
 
